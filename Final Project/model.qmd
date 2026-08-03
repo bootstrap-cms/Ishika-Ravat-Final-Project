@@ -29,7 +29,7 @@ logistic_reg() |>
   fit(as.factor(`Post Sample Immunotherapy`) ~ `Age at Surgery/Biopsy` + Sex + `Race Category` + `TP53 Pathway` + `TMB (nonsynonymous)`, data = genomics_data) |>
   tidy(conf.int = TRUE)
 ```
-According to this table, we can interpret that if you have a TP53 pathway, you are 45.2% more likely to recieve immmunotherapy after a surgery/biopsy. This is proven by the low p value of 0.0106 and the confidence interval (0.110 to 0.804) not including the number 0. 
+According to this table, we can interpret that if you have a TP53 pathway, you are 45.2% more likely to recieve immmunotherapy after a surgery/biopsy. This estimate is statistically significant which is proven by the low p value of 0.0106 and the confidence interval (0.110 to 0.804) not including the number 0. 
 
 ## Data Generating Mechanism 
 
@@ -41,39 +41,3 @@ Using the estimated parameters from our model:
 
 $$\text{logit}(p_i) = -0.794 - 0.0169(\text{Age}_i) - 0.0523(\text{Sex}_{\text{Male}, i}) + 0.460(\text{Race}_{\text{Black}, i}) + 0.476(\text{Race}_{\text{Other}, i}) + 0.667(\text{Race}_{\text{Unknown}, i}) + 0.251(\text{Race}_{\text{White}, i}) + 0.452(\text{TP53}_{\text{Yes}, i}) + 0.0222(\text{TMB}_i)$$
 
-## More Plots
-
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-
-plot_data <- genomics_data |>
-  mutate(
-    Immunotherapy = case_when(
-      `Post Sample Immunotherapy` == "Yes" ~ "Received",
-      `Post Sample Immunotherapy` == "No" ~ "Did Not Receive",
-      TRUE ~ NA_character_
-    )
-  )
-
-age_density <- density(plot_data$`Age at Surgery/Biopsy`)
-
-plot_data <- plot_data |>
-  mutate(
-    density_score = approx(age_density$x, age_density$y, xout = `Age at Surgery/Biopsy`)$y
-  )
-
-ggplot(plot_data, aes(x = `Age at Surgery/Biopsy`, y = 0, color = Immunotherapy, alpha = density_score)) +
-  geom_jitter(width = 0, height = 0.05, size = 1.8) +
-  scale_color_manual(values = c("Received" = "green", "Did Not Receive" = "red")) +
-  scale_alpha_continuous(range = c(0.2, 0.95)) +
-  labs(
-    title = "Age vs. Post-Sample Immunotherapy",
-    x = "Age at Surgery/Biopsy",
-    y = ""
-  ) +
-  theme_minimal() +
-  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
-```
-We can see from the graph, that there isn't a clear correlation between age and immunotherapy after surgery/biopsy. However, we can note that most people that did not recieve immunotherapy after surgery/biopsy were between ages 60 and 80. However, the data for people who did recieve immunotherapy after surgery/biopsy is more spread out and doesn't have a clear age range. 

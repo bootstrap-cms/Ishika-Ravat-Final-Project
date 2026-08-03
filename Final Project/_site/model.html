@@ -160,7 +160,6 @@ window.Quarto = {
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#table" id="toc-table" class="nav-link" data-scroll-target="#table">Table</a></li>
   <li><a href="#data-generating-mechanism" id="toc-data-generating-mechanism" class="nav-link" data-scroll-target="#data-generating-mechanism">Data Generating Mechanism</a></li>
-  <li><a href="#more-plots" id="toc-more-plots" class="nav-link" data-scroll-target="#more-plots">More Plots</a></li>
   </ul>
 </nav>
     </div>
@@ -208,7 +207,7 @@ window.Quarto = {
 9 `TMB (nonsynonymous)`    0.0222   0.00833     2.66  0.00777  0.00599   0.0388 </code></pre>
 </div>
 </div>
-<p>According to this table, we can interpret that if you have a TP53 pathway, you are 45.2% more likely to recieve immmunotherapy after a surgery/biopsy. This is proven by the low p value of 0.0106 and the confidence interval (0.110 to 0.804) not including the number 0.</p>
+<p>According to this table, we can interpret that if you have a TP53 pathway, you are 45.2% more likely to recieve immmunotherapy after a surgery/biopsy. This estimate is statistically significant which is proven by the low p value of 0.0106 and the confidence interval (0.110 to 0.804) not including the number 0.</p>
 </section>
 <section id="data-generating-mechanism" class="level2">
 <h2 class="anchored" data-anchor-id="data-generating-mechanism">Data Generating Mechanism</h2>
@@ -216,19 +215,6 @@ window.Quarto = {
 <p><span class="math display">\[\text{logit}(p_i) = \ln\left(\frac{p_i}{1 - p_i}\right) = \beta_0 + \beta_1(\text{Age}_i) + \beta_2(\text{Sex}_{\text{Male}, i}) + \beta_3(\text{Race}_{\text{Black}, i}) + \beta_4(\text{Race}_{\text{Other}, i}) + \beta_5(\text{Race}_{\text{Unknown}, i}) + \beta_6(\text{Race}_{\text{White}, i}) + \beta_7(\text{TP53}_{\text{Yes}, i}) + \beta_8(\text{TMB}_i)\]</span></p>
 <p>Using the estimated parameters from our model:</p>
 <p><span class="math display">\[\text{logit}(p_i) = -0.794 - 0.0169(\text{Age}_i) - 0.0523(\text{Sex}_{\text{Male}, i}) + 0.460(\text{Race}_{\text{Black}, i}) + 0.476(\text{Race}_{\text{Other}, i}) + 0.667(\text{Race}_{\text{Unknown}, i}) + 0.251(\text{Race}_{\text{White}, i}) + 0.452(\text{TP53}_{\text{Yes}, i}) + 0.0222(\text{TMB}_i)\]</span></p>
-</section>
-<section id="more-plots" class="level2">
-<h2 class="anchored" data-anchor-id="more-plots">More Plots</h2>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="model_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>We can see from the graph, that there isn’t a clear correlation between age and immunotherapy after surgery/biopsy. However, we can note that most people that did not recieve immunotherapy after surgery/biopsy were between ages 60 and 80. However, the data for people who did recieve immunotherapy after surgery/biopsy is more spread out and doesn’t have a clear age range.</p>
 
 
 </section>

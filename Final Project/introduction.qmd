@@ -1,4 +1,4 @@
-
+## Tumor Mutational Burden, TP53 Pathway, and Immunotherapy
 ```{r}
 #| echo: false
 #| message: false
@@ -18,7 +18,6 @@ genomics_data |>
   scale_fill_manual(values = c("No" = "#E64B35FF", "Yes" = "#00A087FF")) +
   scale_y_log10() +
   labs(
-    title = "Tumor Mutational Burden by Immunotherapy Status",
     subtitle = "Comparing patients with and without TP53 pathway mutations",
     x = "Received Post-Sample Immunotherapy",
     y = "TMB (log10 scale)"
@@ -29,26 +28,61 @@ genomics_data |>
 
 According to the data, we can see that of you have a higher TMB score, you are more likely to need immunotherapy. This makes sense because since TMB meausres the changes of DNA on a tumor, it should be more likely to for a patient to need a form f immunotherapy if the DNA on their tumor is very different from the DNA in their cells. From this data, we can also see that if you have a higher TMB score, you are more likely to have a TP53 pathway, meaning your body naturally fights against a tumor. This also makes sense because the more variation in the DNA of a tumor, the more likely it should be for your body to recognize that that tumor is bad and try to fight it. 
 
+## Race, Sex, and Immunotherapy
 ```{r}
 #| echo: false
 #| message: false
 #| warning: false
 
-# Plot 2: Age distribution by Race Category and Sex, split by Immunotherapy status
+# Plot 2: Counts of Race Category by Sex and Immunotherapy status
 genomics_data |> 
-  ggplot(aes(x = `Race Category`, y = `Age at Surgery/Biopsy`, fill = `Post Sample Immunotherapy`)) +
-  geom_boxplot(alpha = 0.7, position = position_dodge(0.8), outlier.alpha = 0.5) +
+  ggplot(aes(x = `Race Category`, fill = `Post Sample Immunotherapy`)) +
+  geom_bar(position = position_dodge(width = 0.8), alpha = 0.8) +
   facet_wrap(~ Sex) +
   scale_fill_manual(values = c("No" = "#3C5488FF", "Yes" = "#F39B7FFF")) +
   labs(
-    title = "Age and Race Distribution by Sex and Immunotherapy Status",
-    subtitle = "Comparing demographic subgroups and treatment receipt",
+    subtitle = "Patient counts by race and sex, separated by post-sample immunotherapy",
     x = "Race Category",
-    y = "Age at Surgery/Biopsy",
+    y = "Patient Count",
     fill = "Immunotherapy"
   ) +
-  theme_minimal(base_size = 12)
+  theme_minimal(base_size = 12) +
+  theme(axis.text.x = element_text(angle = 25, hjust = 1))
 ```
 
-According to the data from this plot, we can see that there is no big correlation between sex and immunotherapy after surgery/biopsy. I also do not see any correlation between race and immunotherapy after surgery/biopsy. However, there are some clear correlations between race, immunotherapy and sex. For example, according to the data, if you are female, younger and asian you are more likely to recieve immunotherapy. 
+This plot suggests that white females are significantly more likely to not recieve immunotherapy after surgery/biopsy than white males. We can see this through the large difference between the two bars for white females compared to white males. 
 
+## Age and Immunotherapy
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+plot_data <- genomics_data |>
+  mutate(
+    Immunotherapy = case_when(
+      `Post Sample Immunotherapy` == "Yes" ~ "Received",
+      `Post Sample Immunotherapy` == "No" ~ "Did Not Receive",
+      TRUE ~ NA_character_
+    )
+  )
+
+age_density <- density(plot_data$`Age at Surgery/Biopsy`)
+
+plot_data <- plot_data |>
+  mutate(
+    density_score = approx(age_density$x, age_density$y, xout = `Age at Surgery/Biopsy`)$y
+  )
+
+ggplot(plot_data, aes(x = `Age at Surgery/Biopsy`, y = 0, color = Immunotherapy, alpha = density_score)) +
+  geom_jitter(width = 0, height = 0.05, size = 1.8) +
+  scale_color_manual(values = c("Received" = "green", "Did Not Receive" = "red")) +
+  scale_alpha_continuous(range = c(0.2, 0.95)) +
+  labs(
+    x = "Age at Surgery/Biopsy",
+    y = ""
+  ) +
+  theme_minimal() +
+  theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
+```
+We can see from the graph, that there isn't a clear correlation between age and immunotherapy after surgery/biopsy. However, we can note that most people that did not recieve immunotherapy after surgery/biopsy were between ages 60 and 80. However, the data for people who did recieve immunotherapy after surgery/biopsy is more spread out and doesn't have a clear age range. 
