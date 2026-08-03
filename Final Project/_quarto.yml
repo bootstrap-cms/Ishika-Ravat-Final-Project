@@ -12,7 +12,7 @@ website:
       - href: sources.qmd
         text: Sources
       - href: introduction.qmd
-        text: Introduction
+        text: Plots
       - href: model.qmd
         text: Model
 

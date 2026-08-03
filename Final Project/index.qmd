@@ -30,5 +30,5 @@ genomics_data %>%
   )
 ```
 
-**Lung Adenocarcinoma** is the most common type of lung cancer, affecting non-smokers, women and young adults. It primarily affects glandular cells (mucus-making cells) and then spreads to outer parts of the lungs. Tragically, early stages often experience no symptoms, making this type of cancer hard to recognize. This project aims to predict if patients with Lung Adenocarcinoma need immunotherapy using variables like Age, Sex, TP53 Pathway (a natural systrem where cells stop tumors from growing), Mutation Count, TMB (nonsynonymous, predicts the success of immunotherapy), and race.
+**Lung Adenocarcinoma** is the most common type of lung cancer, affecting non-smokers, women and young adults. It primarily affects glandular cells (mucus-making cells) and then spreads to outer parts of the lungs. Tragically, early stages often experience no symptoms, making this type of cancer hard to recognize. This project aims to predict if patients with Lung Adenocarcinoma need immunotherapy using variables like **Age**, **Sex**, **TP53 Pathway** (a natural systrem where cells stop tumors from growing), **Mutation Count**, **TMB** (nonsynonymous, predicts the success of immunotherapy), and **race**.
 
