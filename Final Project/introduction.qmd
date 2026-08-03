@@ -1,0 +1,54 @@
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+
+# Read the genomics and demographics dataset
+genomics_data <- read_csv("demographics_genomics_912_dataset.csv")
+
+# Plot 1: TMB by Immunotherapy status, faceted by TP53 Pathway
+genomics_data |> 
+  ggplot(aes(x = `Post Sample Immunotherapy`, y = `TMB (nonsynonymous)`, fill = `Post Sample Immunotherapy`)) +
+  geom_boxplot(alpha = 0.6, outlier.shape = NA) +
+  geom_jitter(width = 0.2, alpha = 0.3, color = "#2C3E50") +
+  facet_wrap(~ `TP53 Pathway`, labeller = label_both) +
+  scale_fill_manual(values = c("No" = "#E64B35FF", "Yes" = "#00A087FF")) +
+  scale_y_log10() +
+  labs(
+    title = "Tumor Mutational Burden by Immunotherapy Status",
+    subtitle = "Comparing patients with and without TP53 pathway mutations",
+    x = "Received Post-Sample Immunotherapy",
+    y = "TMB (log10 scale)"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "none")
+```
+
+According to the data, we can see that of you have a higher TMB score, you are more likely to need immunotherapy. This makes sense because since TMB meausres the changes of DNA on a tumor, it should be more likely to for a patient to need a form f immunotherapy if the DNA on their tumor is very different from the DNA in their cells. From this data, we can also see that if you have a higher TMB score, you are more likely to have a TP53 pathway, meaning your body naturally fights against a tumor. This also makes sense because the more variation in the DNA of a tumor, the more likely it should be for your body to recognize that that tumor is bad and try to fight it. 
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+# Plot 2: Age distribution by Race Category and Sex, split by Immunotherapy status
+genomics_data |> 
+  ggplot(aes(x = `Race Category`, y = `Age at Surgery/Biopsy`, fill = `Post Sample Immunotherapy`)) +
+  geom_boxplot(alpha = 0.7, position = position_dodge(0.8), outlier.alpha = 0.5) +
+  facet_wrap(~ Sex) +
+  scale_fill_manual(values = c("No" = "#3C5488FF", "Yes" = "#F39B7FFF")) +
+  labs(
+    title = "Age and Race Distribution by Sex and Immunotherapy Status",
+    subtitle = "Comparing demographic subgroups and treatment receipt",
+    x = "Race Category",
+    y = "Age at Surgery/Biopsy",
+    fill = "Immunotherapy"
+  ) +
+  theme_minimal(base_size = 12)
+```
+
+According to the data from this plot, we can see that there is no big correlation between sex and immunotherapy after surgery/biopsy. I also do not see any correlation between race and immunotherapy after surgery/biopsy. However, there are some clear correlations between race, immunotherapy and sex. For example, according to the data, if you are female, younger and asian you are more likely to recieve immunotherapy. 
+

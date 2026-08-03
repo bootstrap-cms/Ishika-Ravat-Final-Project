@@ -1,0 +1,12 @@
+All data used in this project is from [cBioPortal](https://www.cbioportal.org/) for Cancer Genomics. The data is from 2023. This source provides data on multiple types of cancer and provides key variables to draw conclusions from. 
+
+## Key Variables
+
+- **Post Sample Immunotherapy**: If the patient received immunotherapy after their tumor was studied
+- **Age**: Age at the surgery/biopsy
+- **Sex**: Male or Female
+- **TP53 Pathway**: Whether patient has naturally occurring bodily response to stop tumors from growing
+- **Mutation Count**: Number of gene changes found in a tumor
+- **TMB (nonsynonymous)**: A measure of the DNA changes in cancer cells 
+- **Race**: White, Black, Asian, Unknown or Uncertain
+   
