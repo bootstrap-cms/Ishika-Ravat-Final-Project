@@ -1,0 +1,86 @@
+[
+  {
+    "objectID": "model.html",
+    "href": "model.html",
+    "title": "Model",
+    "section": "",
+    "text": "This page presents the statistical model predicting immunotherapy use in patients with lung adenocarcinoma. Since the question is Predictive, we will use a logistic regression to model the data."
+  },
+  {
+    "objectID": "model.html#overview",
+    "href": "model.html#overview",
+    "title": "Model",
+    "section": "",
+    "text": "This page presents the statistical model predicting immunotherapy use in patients with lung adenocarcinoma. Since the question is Predictive, we will use a logistic regression to model the data."
+  },
+  {
+    "objectID": "model.html#table",
+    "href": "model.html#table",
+    "title": "Model",
+    "section": "Table",
+    "text": "Table\n\n\n# A tibble: 9 × 7\n  term                   estimate std.error statistic p.value conf.low conf.high\n  &lt;chr&gt;                     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;\n1 (Intercept)             -0.794    0.534      -1.49  0.137   -1.86      0.239  \n2 `Age at Surgery/Biops…  -0.0169   0.00741    -2.28  0.0228  -0.0314   -0.00230\n3 SexMale                 -0.0523   0.167      -0.312 0.755   -0.384     0.274  \n4 `Race Category`Black     0.460    0.448       1.03  0.305   -0.439     1.33   \n5 `Race Category`Other     0.476    0.629       0.757 0.449   -0.825     1.68   \n6 `Race Category`Unknown   0.667    0.436       1.53  0.126   -0.199     1.52   \n7 `Race Category`White     0.251    0.284       0.886 0.376   -0.284     0.834  \n8 `TP53 Pathway`Yes        0.452    0.177       2.56  0.0106   0.110     0.804  \n9 `TMB (nonsynonymous)`    0.0222   0.00833     2.66  0.00777  0.00599   0.0388 \n\n\nAccording to this table, we can interpret that if you have a TP53 pathway, you are 45.2% more likely to recieve immmunotherapy after a surgery/biopsy. This estimate is statistically significant which is proven by the low p value of 0.0106 and the confidence interval (0.110 to 0.804) not including the number 0."
+  },
+  {
+    "objectID": "model.html#data-generating-mechanism",
+    "href": "model.html#data-generating-mechanism",
+    "title": "Model",
+    "section": "Data Generating Mechanism",
+    "text": "Data Generating Mechanism\nThe probability \\(p_i\\) of a patient receiving post-sample immunotherapy is modeled using logistic regression:\n\\[\\text{logit}(p_i) = \\ln\\left(\\frac{p_i}{1 - p_i}\\right) = \\beta_0 + \\beta_1(\\text{Age}_i) + \\beta_2(\\text{Sex}_{\\text{Male}, i}) + \\beta_3(\\text{Race}_{\\text{Black}, i}) + \\beta_4(\\text{Race}_{\\text{Other}, i}) + \\beta_5(\\text{Race}_{\\text{Unknown}, i}) + \\beta_6(\\text{Race}_{\\text{White}, i}) + \\beta_7(\\text{TP53}_{\\text{Yes}, i}) + \\beta_8(\\text{TMB}_i)\\]\nUsing the estimated parameters from our model:\n\\[\\text{logit}(p_i) = -0.794 - 0.0169(\\text{Age}_i) - 0.0523(\\text{Sex}_{\\text{Male}, i}) + 0.460(\\text{Race}_{\\text{Black}, i}) + 0.476(\\text{Race}_{\\text{Other}, i}) + 0.667(\\text{Race}_{\\text{Unknown}, i}) + 0.251(\\text{Race}_{\\text{White}, i}) + 0.452(\\text{TP53}_{\\text{Yes}, i}) + 0.0222(\\text{TMB}_i)\\]"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Predicting Immunotherapy Use in Patients with Lung Adenocarcinoma Using Demographic and Genomic Characteristics",
+    "section": "",
+    "text": "Lung Adenocarcinoma is the most common type of lung cancer, affecting non-smokers, women and young adults. It primarily affects glandular cells (mucus-making cells) and then spreads to outer parts of the lungs. Tragically, early stages often experience no symptoms, making this type of cancer hard to recognize. This project aims to predict if patients with Lung Adenocarcinoma need immunotherapy using variables like Age, Sex, TP53 Pathway (a natural systrem where cells stop tumors from growing), Mutation Count, TMB (nonsynonymous, predicts the success of immunotherapy), and race."
+  },
+  {
+    "objectID": "sources.html",
+    "href": "sources.html",
+    "title": "Final Project",
+    "section": "",
+    "text": "All data used in this project is from cBioPortal for Cancer Genomics. The data is from 2023. This source provides data on multiple types of cancer and provides key variables to draw conclusions from."
+  },
+  {
+    "objectID": "sources.html#key-variables",
+    "href": "sources.html#key-variables",
+    "title": "Final Project",
+    "section": "Key Variables",
+    "text": "Key Variables\n\nPost Sample Immunotherapy: If the patient received immunotherapy after their tumor was studied\nAge: Age at the surgery/biopsy\nSex: Male or Female\nTP53 Pathway: Whether patient has naturally occurring bodily response to stop tumors from growing\nMutation Count: Number of gene changes found in a tumor\nTMB (nonsynonymous): A measure of the DNA changes in cancer cells\nRace: White, Black, Asian, Unknown or Uncertain"
+  },
+  {
+    "objectID": "introduction.html",
+    "href": "introduction.html",
+    "title": "Final Project",
+    "section": "",
+    "text": "According to the data, we can see that of you have a higher TMB score, you are more likely to need immunotherapy. This makes sense because since TMB meausres the changes of DNA on a tumor, it should be more likely to for a patient to need a form f immunotherapy if the DNA on their tumor is very different from the DNA in their cells. From this data, we can also see that if you have a higher TMB score, you are more likely to have a TP53 pathway, meaning your body naturally fights against a tumor. This also makes sense because the more variation in the DNA of a tumor, the more likely it should be for your body to recognize that that tumor is bad and try to fight it."
+  },
+  {
+    "objectID": "introduction.html#tumor-mutational-burden-tp53-pathway-and-immunotherapy",
+    "href": "introduction.html#tumor-mutational-burden-tp53-pathway-and-immunotherapy",
+    "title": "Final Project",
+    "section": "",
+    "text": "According to the data, we can see that of you have a higher TMB score, you are more likely to need immunotherapy. This makes sense because since TMB meausres the changes of DNA on a tumor, it should be more likely to for a patient to need a form f immunotherapy if the DNA on their tumor is very different from the DNA in their cells. From this data, we can also see that if you have a higher TMB score, you are more likely to have a TP53 pathway, meaning your body naturally fights against a tumor. This also makes sense because the more variation in the DNA of a tumor, the more likely it should be for your body to recognize that that tumor is bad and try to fight it."
+  },
+  {
+    "objectID": "introduction.html#race-sex-and-immunotherapy",
+    "href": "introduction.html#race-sex-and-immunotherapy",
+    "title": "Final Project",
+    "section": "Race, Sex, and Immunotherapy",
+    "text": "Race, Sex, and Immunotherapy\n\n\n\n\n\n\n\n\n\nThis plot suggests that white females are significantly more likely to not recieve immunotherapy after surgery/biopsy than white males. We can see this through the large difference between the two bars for white females compared to white males."
+  },
+  {
+    "objectID": "introduction.html#age-and-immunotherapy",
+    "href": "introduction.html#age-and-immunotherapy",
+    "title": "Final Project",
+    "section": "Age and Immunotherapy",
+    "text": "Age and Immunotherapy\n\n\n\n\n\n\n\n\n\nWe can see from the graph, that there isn’t a clear correlation between age and immunotherapy after surgery/biopsy. However, we can note that most people that did not recieve immunotherapy after surgery/biopsy were between ages 60 and 80. However, the data for people who did recieve immunotherapy after surgery/biopsy is more spread out and doesn’t have a clear age range."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "My name is Ishika Ravat and I am a junior in highschool in North Carolina. I aspire to go into biomedical engineering and hope to take part in vaccine production. In my free time, I love playing volleyball, listening to music and traveling the world. I enjoy testing theories I come across in everday life, which plays a key role in my passion for data science. Data Science allows me to answer questions I have and fuel my curiosity about the world.\n\nGtihub Account:\nEmail: think.ishika@gmail.com\nFinal Project Repository:\n\nThis project was created as apart of Kanes Data Science Bootcamp."
+  }
+]
